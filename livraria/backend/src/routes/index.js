@@ -7,6 +7,8 @@ const livrosRoutes = require("./livros.routes");
 // Rotas de autenticação
 const authRoutes = require("./auth.routes");
 
+const reviewsRoutes = require('./reviews.routes');
+
 // Rota inicial (explicação do sistema)
 router.get("/", (req, res) => {
     res.status(200).json({
@@ -19,5 +21,6 @@ router.use("/livros", livrosRoutes);
 // Usa as rotas de autenticação
 router.use("/auth", authRoutes);
 
+router.use('/livros/:livroId/reviews', reviewsRoutes);
 
 module.exports = router;
