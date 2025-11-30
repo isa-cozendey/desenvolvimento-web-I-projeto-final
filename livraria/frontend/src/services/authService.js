@@ -19,5 +19,17 @@ export const authService = {
     async getMe() {
         const response = await api.get('/auth/me');
         return response.data;
+    },
+
+    // NOVO: Pedir reset de senha
+    async forgotPassword(email) {
+        const response = await api.post('/auth/forgot-password', { email });
+        return response.data;
+    },
+
+    // NOVO: Enviar nova senha com token
+    async resetPassword(token, newPassword) {
+        const response = await api.post('/auth/reset-password', { token, newPassword });
+        return response.data;
     }
 };

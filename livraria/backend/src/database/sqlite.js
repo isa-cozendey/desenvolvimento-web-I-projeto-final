@@ -25,7 +25,6 @@ function query(sql, params = []) {
 }
 
 function init() {
-    // ATUALIZADO: Removida a linha 'categoria TEXT NOT NULL,'
     run(`
         CREATE TABLE IF NOT EXISTS livros (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -36,15 +35,20 @@ function init() {
             imagem_capa TEXT
         )
     `);
+    
+    // ATUALIZADO: Adicionadas colunas reset_token e reset_expires
     run(`
         CREATE TABLE IF NOT EXISTS users (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             username TEXT NOT NULL UNIQUE,
             email TEXT NOT NULL UNIQUE,
             password_hash TEXT NOT NULL,
+            reset_token TEXT,
+            reset_expires DATETIME,
             created_at DATETIME DEFAULT CURRENT_TIMESTAMP
         )
     `);
+    
     run(`
         CREATE TABLE IF NOT EXISTS reviews (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -57,7 +61,7 @@ function init() {
             FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
         )
     `);
-    console.log('Base de dados SQLite inicializada (livros, users, reviews)');
+    console.log('Base de dados SQLite inicializada com suporte a reset de senha');
 }
 
 module.exports = { getDb, run, get, all, query, init };

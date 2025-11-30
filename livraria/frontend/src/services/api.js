@@ -8,16 +8,22 @@ const api = axios.create({
     }
 });
 
-// Interceptor para tratamento de erros
 api.interceptors.response.use(
     (response) => response,
     (error) => {
         if (error.response?.status === 401) {
-            // Se não autenticado, redireciona para login (exceto se já estiver em páginas públicas)
-            const publicRoutes = ['/login', '/register'];
             const currentPath = window.location.pathname;
+            
+            // LISTA DE ROTAS QUE NÃO PRECISAM DE LOGIN
+            // Adicionamos aqui o startWith para pegar qualquer link de reset-password
+            const isPublicRoute = 
+                currentPath === '/login' ||
+                currentPath === '/register' ||
+                currentPath === '/forgot-password' ||
+                currentPath.startsWith('/reset-password/');
 
-            if (!publicRoutes.includes(currentPath)) {
+            // Se NÃO for uma rota pública, aí sim manda pro login
+            if (!isPublicRoute) {
                 window.location.href = '/login';
             }
         }

@@ -7,6 +7,11 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import Home from './pages/Home'
 import Livros from './pages/Livros'
+
+// IMPORTAR PÁGINAS NOVAS
+import ForgotPassword from './pages/ForgotPassword'
+import ResetPassword from './pages/ResetPassword'
+
 import './App.css'
 
 function App() {
@@ -19,6 +24,11 @@ function App() {
                         <Routes>
                             <Route path="/login" element={<Login />} />
                             <Route path="/register" element={<Register />} />
+                            
+                            {/* ROTAS PÚBLICAS DE SENHA */}
+                            <Route path="/forgot-password" element={<ForgotPassword />} />
+                            <Route path="/reset-password/:token" element={<ResetPassword />} />
+
                             <Route
                                 path="/"
                                 element={

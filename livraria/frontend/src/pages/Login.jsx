@@ -79,6 +79,7 @@ const Login = () => {
                     <button type="submit" className="btn btn-primary btn-block" disabled={loading}>
                         {loading ? 'Entrando...' : 'Entrar'}
                     </button>
+                    <Link to="/forgot-password">Esqueci minha senha</Link>
                 </form>
 
                 <p className="auth-link">
