@@ -7,24 +7,36 @@ export const livrosService = {
     },
 
     async buscarPorId(id) {
-        const response = await api.get(`/livros/${id}`);
-        return response.data;
-    },
+    const response = await api.get(`/livros/${id}`);
+    return response.data;
+},
 
-    async criar(livro) {
-        console.log(livro);
+async criar(livro) {
+    console.log("Enviando livro com imagem:", livro);
 
-        const response = await api.post('/livros', livro);
-        return response.data;
-    },
+    // AQUI ESTÁ O SEGREDO:
+    // Avisamos o axios para usar multipart/form-data (para arquivos)
+    // em vez do application/json padrão
+    const response = await api.post('/livros', livro, {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    });
+    return response.data;
+},
 
-    async atualizar(id, livro) {
-        const response = await api.put(`/livros/${id}`, livro);
-        return response.data;
-    },
+async atualizar(id, livro) {
+    // A mesma coisa aqui na atualização
+    const response = await api.put(`/livros/${id}`, livro, {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    });
+    return response.data;
+},
 
-    async remover(id) {
-        const response = await api.delete(`/livros/${id}`);
-        return response.data;
-    }
+async remover(id) {
+    const response = await api.delete(`/livros/${id}`);
+    return response.data;
+}
 };

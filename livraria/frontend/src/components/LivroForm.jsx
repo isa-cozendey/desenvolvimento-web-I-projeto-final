@@ -3,11 +3,10 @@ import './LivroForm.css';
 
 const LivroForm = ({ livro, onSubmit, onCancel }) => {
     const [formData, setFormData] = useState({
-        titulo: '',
-        autor: '',
-        ano: '',
-        editora: ''
+        titulo: '', autor: '', ano: '', editora: ''
     });
+    // NOVO: Estado para armazenar o ficheiro
+    const [imagemArquivo, setImagemArquivo] = useState(null);
 
     useEffect(() => {
         if (livro) {
@@ -22,83 +21,76 @@ const LivroForm = ({ livro, onSubmit, onCancel }) => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData(prev => ({
-            ...prev,
-            [name]: value
-        }));
+        setFormData(prev => ({ ...prev, [name]: value }));
+    };
+
+    // NOVO: Handler de ficheiro
+    const handleFileChange = (e) => {
+        if (e.target.files && e.target.files[0]) {
+            setImagemArquivo(e.target.files[0]);
+        }
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        onSubmit(formData);
+
+        // NOVO: Usamos FormData para enviar ficheiro
+        const dadosEnvio = new FormData();
+        dadosEnvio.append('titulo', formData.titulo);
+        dadosEnvio.append('autor', formData.autor);
+        dadosEnvio.append('ano', formData.ano);
+        dadosEnvio.append('editora', formData.editora);
+        
+        if (imagemArquivo) {
+            dadosEnvio.append('imagem', imagemArquivo);
+        }
+
+        onSubmit(dadosEnvio);
     };
 
     return (
         <div className="livro-form-overlay">
             <div className="livro-form-container">
                 <h2>{livro ? 'Editar Livro' : 'Novo Livro'}</h2>
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} encType="multipart/form-data">
                     <div className="input-group">
                         <label htmlFor="titulo">Título *</label>
-                        <input
-                            type="text"
-                            id="titulo"
-                            name="titulo"
-                            value={formData.titulo}
-                            onChange={handleChange}
-                            required
-                        />
+                        <input type="text" name="titulo" value={formData.titulo} onChange={handleChange} required />
                     </div>
 
                     <div className="input-group">
                         <label htmlFor="autor">Autor *</label>
-                        <input
-                            type="text"
-                            id="autor"
-                            name="autor"
-                            value={formData.autor}
-                            onChange={handleChange}
-                            required
-                        />
+                        <input type="text" name="autor" value={formData.autor} onChange={handleChange} required />
+                    </div>
+
+                    {/* NOVO: Input de Imagem */}
+                    <div className="input-group">
+                        <label htmlFor="imagem">Capa do Livro</label>
+                        <input type="file" name="imagem" accept="image/*" onChange={handleFileChange} />
+                        {livro && livro.imagem_capa && !imagemArquivo && (
+                            <small style={{display: 'block', marginTop: '5px', color: '#666'}}>
+                                Capa atual salva. Envia outra para trocar.
+                            </small>
+                        )}
                     </div>
 
                     <div className="input-group">
                         <label htmlFor="ano">Ano *</label>
-                        <input
-                            type="number"
-                            id="ano"
-                            name="ano"
-                            value={formData.ano}
-                            onChange={handleChange}
-                            required
-                            min="1000"
-                            max="9999"
-                        />
+                        <input type="number" name="ano" value={formData.ano} onChange={handleChange} required />
                     </div>
 
                     <div className="input-group">
                         <label htmlFor="editora">Editora</label>
-                        <input
-                            type="text"
-                            id="editora"
-                            name="editora"
-                            value={formData.editora}
-                            onChange={handleChange}
-                        />
+                        <input type="text" name="editora" value={formData.editora} onChange={handleChange} />
                     </div>
 
                     <div className="form-actions">
-                        <button type="button" onClick={onCancel} className="btn btn-secondary">
-                            Cancelar
-                        </button>
-                        <button type="submit" className="btn btn-success">
-                            {livro ? 'Atualizar' : 'Criar'}
-                        </button>
+                        <button type="button" onClick={onCancel} className="btn btn-secondary">Cancelar</button>
+                        <button type="submit" className="btn btn-success">{livro ? 'Atualizar' : 'Criar'}</button>
                     </div>
                 </form>
             </div>
         </div>
     );
 };
-
 export default LivroForm;
