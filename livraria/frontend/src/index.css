@@ -1,3 +1,35 @@
+/* --- VARIÁVEIS DE CORES --- */
+:root {
+  /* Cores do Tema Claro (Padrão) */
+  --bg-body: #f5f5f5;
+  --bg-card: #ffffff;
+  --text-primary: #333333;
+  --text-secondary: #666666;
+  --border-color: #dddddd;
+  --input-bg: #ffffff;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --header-bg: #ffffff;
+  
+  /* Cores que não mudam (Brand Colors) */
+  --primary: #007bff;
+  --primary-hover: #0056b3;
+  --danger: #dc3545;
+  --success: #28a745;
+}
+
+/* Cores do Tema Escuro (Sobrescrevem as de cima) */
+[data-theme='dark'] {
+  --bg-body: #121212;
+  --bg-card: #1e1e1e;
+  --text-primary: #e0e0e0;
+  --text-secondary: #aaaaaa;
+  --border-color: #444444;
+  --input-bg: #2c2c2c;
+  --shadow-color: rgba(0, 0, 0, 0.5);
+  --header-bg: #1e1e1e;
+}
+
+/* --- RESET BÁSICO --- */
 * {
   margin: 0;
   padding: 0;
@@ -5,139 +37,76 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background-color: #f5f5f5;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  background-color: var(--bg-body);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease; /* Transição suave */
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
-
-/* Estilos globais */
+/* --- CLASSES GLOBAIS --- */
 .container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
 }
 
+/* Botões */
 .btn {
   padding: 10px 20px;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
   font-size: 14px;
-  font-weight: 500;
-  transition: all 0.3s ease;
-}
-
-.btn-primary {
-  background-color: #007bff;
+  font-weight: 600;
+  transition: opacity 0.2s;
   color: white;
 }
 
-.btn-primary:hover {
-  background-color: #0056b3;
-}
+.btn:hover { opacity: 0.9; }
 
-.btn-secondary {
-  background-color: #6c757d;
-  color: white;
-}
+.btn-primary { background-color: var(--primary); }
+.btn-secondary { background-color: #6c757d; }
+.btn-danger { background-color: var(--danger); }
+.btn-success { background-color: var(--success); }
 
-.btn-secondary:hover {
-  background-color: #545b62;
-}
-
-.btn-danger {
-  background-color: #dc3545;
-  color: white;
-}
-
-.btn-danger:hover {
-  background-color: #c82333;
-}
-
-.btn-success {
-  background-color: #28a745;
-  color: white;
-}
-
-.btn-success:hover {
-  background-color: #218838;
-}
-
-.input-group {
-  margin-bottom: 15px;
-}
+/* Inputs e Labels */
+.input-group { margin-bottom: 15px; }
 
 .input-group label {
   display: block;
   margin-bottom: 5px;
   font-weight: 500;
-  color: #333;
+  color: var(--text-primary);
 }
 
 .input-group input,
-.input-group textarea {
+.input-group textarea,
+.input-group select {
   width: 100%;
   padding: 10px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--border-color);
+  background-color: var(--input-bg);
+  color: var(--text-primary);
   border-radius: 4px;
   font-size: 14px;
 }
 
-.input-group input:focus,
-.input-group textarea:focus {
+.input-group input:focus {
   outline: none;
-  border-color: #007bff;
-  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.1);
+  border-color: var(--primary);
 }
 
-.card {
-  background: white;
+/* Cards Genéricos (Auth, etc) */
+.auth-card, .card {
+  background-color: var(--bg-card);
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px var(--shadow-color);
   padding: 20px;
-  margin-bottom: 20px;
 }
 
-.alert {
-  padding: 12px 20px;
-  border-radius: 4px;
-  margin-bottom: 20px;
-}
+/* Links */
+a { color: var(--primary); text-decoration: none; }
+a:hover { text-decoration: underline; }
 
-.alert-success {
-  background-color: #d4edda;
-  border: 1px solid #c3e6cb;
-  color: #155724;
-}
-
-.alert-error {
-  background-color: #f8d7da;
-  border: 1px solid #f5c6cb;
-  color: #721c24;
-}
-
-.alert-info {
-  background-color: #d1ecf1;
-  border: 1px solid #bee5eb;
-  color: #0c5460;
-}
-
-.loading {
-  text-align: center;
-  padding: 40px;
-  color: #666;
-}
-
-.error {
-  text-align: center;
-  padding: 40px;
-  color: #dc3545;
-}
+h1, h2, h3 { color: var(--text-primary); }
+p { color: var(--text-secondary); }

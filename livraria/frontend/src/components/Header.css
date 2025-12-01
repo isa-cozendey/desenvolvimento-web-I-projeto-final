@@ -1,7 +1,11 @@
 .header {
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: var(--header-bg); /* Usa a variável */
+  box-shadow: 0 2px 4px var(--shadow-color);
   padding: 1rem 0;
+  transition: background-color 0.3s ease;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
 .header-content {
@@ -12,7 +16,7 @@
 
 .logo {
   text-decoration: none;
-  color: #333;
+  color: var(--text-primary);
 }
 
 .logo h1 {
@@ -28,13 +32,13 @@
 
 .nav-link {
   text-decoration: none;
-  color: #333;
+  color: var(--text-primary);
   font-weight: 500;
   transition: color 0.3s ease;
 }
 
 .nav-link:hover {
-  color: #007bff;
+  color: var(--primary);
 }
 
 .user-info {
@@ -44,6 +48,31 @@
 }
 
 .user-info span {
-  color: #666;
+  color: var(--text-secondary);
   font-size: 14px;
+}
+
+/* Botão de Tema */
+.btn-theme {
+  background: none;
+  border: 1px solid var(--border-color);
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s;
+}
+
+.btn-theme:hover {
+  transform: scale(1.1);
+  background-color: var(--bg-body);
+}
+
+.btn-sm {
+  padding: 5px 12px;
+  font-size: 12px;
 }
