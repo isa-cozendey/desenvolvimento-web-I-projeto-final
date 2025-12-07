@@ -43,14 +43,19 @@ Segurança/Utils: Bcrypt, Crypto, Nodemailer, Multer.
 Siga os passos abaixo para rodar o projeto:
 
 Pré-requisitos:
-Configuração de E-mail (Importante):
+
+### Configuração de E-mail (Importante)
+
 No .env, é necessário adicionar as credenciais para teste de envio de e-mail (necessário Senha de App do Gmail):
 
 EMAIL_USER=seu_email_para_teste@gmail.com
+
 EMAIL_PASS=senha_de_aplicativo_do_google
 
 Agora é só rodar o servidor.
+
 O banco de dados livraria.db será criado automaticamente na primeira execução.
+
 Acesse o link: http://localhost:3000
 
 Desenvolvido por: Isadora Menezes Cozendey
